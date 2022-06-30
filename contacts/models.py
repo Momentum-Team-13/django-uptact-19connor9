@@ -19,11 +19,12 @@ class Contact(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     state = USStateField(null=True, blank=True)
     zip_code = USZipCodeField(null=True, blank=True)
-    birthday = models.DateField(null=True, blank=True)
-    note = models.ForeignKey(
-        "Note", on_delete=models.CASCADE, related_name="notes", null=True, blank=True)
+    birthday = models.DateField(blank=True, null=True)
 
 
 class Note(models.Model):
-    text = models.TextField(null=True, blank=True)
-    date_time = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    note = models.CharField(max_length=255, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE,
+                                related_name="notes_for_contact", null=True, blank=True)
+# switch over contact to note
